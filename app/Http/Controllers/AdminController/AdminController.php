@@ -15,9 +15,9 @@ class AdminController extends Controller
     public function LoginAdmin(){
         return view('auth\login');
     }
-    public function AdminAbout(){
-        $AllData=Admin::select('contact_section','fontcolor','backgroundnav','namewebsite','description','background_color','contact_name','contact','created_at','updated_at','about','namebrand','video','icon1','icon2','icon3','icon4','icon5','icon6','caption1','caption2','caption3','caption4','caption5','caption6','sliderpic1','sliderpic2','sliderpic3','sliderpic4','emailcompany','tel','fax','logocont','background')->get();
-        return view('AdminAbout',compact('AllData'));
+    public function Adminpage(){
+        $AllData=Admin::select('namewebsite','description','background_color','contact_name','contact','created_at','updated_at','about','namebrand','video','icon1','icon2','icon3','icon4','icon5','icon6','caption1','caption2','caption3','caption4','caption5','caption6','sliderpic1','sliderpic2','sliderpic3','sliderpic4','emailcompany','tel','fax','logocont','background')->get();
+        return view('AdminFullpage',compact('AllData'));
     }
     //////////////////////////////////////////// about section //////////////////////////////
     public function updateabout(Request $request)
@@ -201,6 +201,8 @@ class AdminController extends Controller
         return redirect()->back()->with(['message'=>'Changes Saved']);
     }
     ////////////////////////////////////// Slider ////////////////////////////////////
+    ///
+    ////////////////////////////////////// contact ////////////////////////////////////
     public function updatecontact(Request $request)
     {
         $editcontact =  Admin::find(1);
@@ -261,12 +263,6 @@ class AdminController extends Controller
         $editbackfround->background_color = $request->background_color;
         $editbackfround->save();
         return redirect()->back()->with(['message'=>'Changes Saved']);
-    }
-
-
-    public function Adminpage(){
-        $AllData=Admin::select('namewebsite','description','background_color','contact_name','contact','created_at','updated_at','about','namebrand','video','icon1','icon2','icon3','icon4','icon5','icon6','caption1','caption2','caption3','caption4','caption5','caption6','sliderpic1','sliderpic2','sliderpic3','sliderpic4','emailcompany','tel','fax','logocont','background')->get();
-        return view('AdminFullpage',compact('AllData'));
     }
 
     public function updatepage(Request $request)

@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::get("/","AdminController\AdminController@Index");
 Route::get("/AdminLogin","AdminController\AdminController@LoginAdmin");
-Route::get("/admin","AdminController\AdminController@AdminAbout");
+Route::get("/admin","AdminController\AdminController@Adminpage");
 Route::post('/admin.about/editabout', 'AdminController\AdminController@updateabout')->name('category.update');
 Route::get('/admin.about/deleteabout', 'AdminController\AdminController@deleteabout')->name('category.delete');
 Route::get('/admin.about/deletevideo', 'AdminController\AdminController@deletevideo')->name('category.deletevideo');

@@ -19,7 +19,7 @@ class AdminController extends Controller
         $AllData=Admin::select('contact_section','fontcolor','backgroundnav','namewebsite','description','background_color','contact_name','contact','created_at','updated_at','about','namebrand','video','icon1','icon2','icon3','icon4','icon5','icon6','caption1','caption2','caption3','caption4','caption5','caption6','sliderpic1','sliderpic2','sliderpic3','sliderpic4','emailcompany','tel','fax','logocont','background')->get();
         return view('AdminAbout',compact('AllData'));
     }
-    ######################################## about section ##########################
+    //////////////////////////////////////////// about section //////////////////////////////
     public function updateabout(Request $request)
     {
         $editabout =  Admin::find(1);
@@ -60,9 +60,9 @@ class AdminController extends Controller
     return redirect()->back()->with(['message'=>'Changes Saved']);
 }
 
-    ######################################## about section ##########################
+    //////////////////////////////////////////// about section //////////////////////////////
 
-    ######################################## Why us section ##########################
+    //////////////////////////////////////////// why us section //////////////////////////////
     public function updateus(Request $request)
     {
         $editwhyus =  Admin::find(1);
@@ -100,13 +100,8 @@ class AdminController extends Controller
         $deletewhyus->save();
         return redirect()->back()->with(['message'=>'Changes Saved']);
     }
-    ######################################## why us section ##########################
-
-    ################## Slider  ###################
-    public function Adminslider(){
-        $AllData=Admin::select('contact_name','contact','created_at','updated_at','about','namebrand','video','icon1','icon2','icon3','icon4','icon5','icon6','caption1','caption2','caption3','caption4','caption5','caption6','sliderpic1','sliderpic2','sliderpic3','sliderpic4','emailcompany','tel','fax','logocont','background')->get();
-        return view('AdminSlider',compact('AllData'));
-    }
+    //////////////////////////////////////////// why us section //////////////////////////////
+    //////////////////////////////////////////// Slider //////////////////////////////
     public function updatepic1(Request $request){
         $editpic1 =  Admin::find(1);
         $editpic1->sliderpic4 = $request->sliderpic1;
@@ -205,11 +200,7 @@ class AdminController extends Controller
         $deleteslider->save();
         return redirect()->back()->with(['message'=>'Changes Saved']);
     }
-
-    public function Admincontact(){
-        $AllData=Admin::select('background_color','contact_name','contact','created_at','updated_at','about','namebrand','video','icon1','icon2','icon3','icon4','icon5','icon6','caption1','caption2','caption3','caption4','caption5','caption6','sliderpic1','sliderpic2','sliderpic3','sliderpic4','emailcompany','tel','fax','logocont','background')->get();
-        return view('AdminContact',compact('AllData'));
-    }
+    ////////////////////////////////////// Slider ////////////////////////////////////
     public function updatecontact(Request $request)
     {
         $editcontact =  Admin::find(1);

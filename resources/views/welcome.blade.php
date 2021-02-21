@@ -9,7 +9,6 @@
     <link href="css.css" rel="stylesheet">
     <style>
         @foreach($AllData as $data)
-
         body{
             background-image:url("public/{{$data->background}}"),url("https://wallpaperaccess.com/full/1924548.jpg");
         }
@@ -203,7 +202,7 @@
                                     @if($data->contact_name!=null)
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" placeholder="Your name">
-                                        <label for="floatingInput">Your name</label>
+
                                     </div>
                                     @endif
                                     <div class="form-floating mb-3">

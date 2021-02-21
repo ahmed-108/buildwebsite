@@ -13,7 +13,6 @@
 
 Auth::routes();
 
-//Route::get("/login","HomeController@index");// لما بستخدم دي بيحولني علي النيم لوجين
 
 Route::get("/","AdminController\AdminController@Index");
 Route::get("/AdminLogin","AdminController\AdminController@LoginAdmin");

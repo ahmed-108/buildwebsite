@@ -11,10 +11,16 @@
 |
 */
 
+use App\Models\Admin;
+use Illuminate\Support\Facades\Route;
+
 Auth::routes();
 
 
-Route::get("/","AdminController\AdminController@Index");
+Route::get("/",function (){
+    $AllData= Admin::select('contact_section','fontcolor','backgroundnav','namewebsite','description','background_color','contact_name','contact','created_at','updated_at','about','namebrand','video','icon1','icon2','icon3','icon4','icon5','icon6','caption1','caption2','caption3','caption4','caption5','caption6','sliderpic1','sliderpic2','sliderpic3','sliderpic4','emailcompany','tel','fax','logocont','background')->get();
+    return view('welcome',compact('AllData'));
+});
 Route::get("/AdminLogin","AdminController\AdminController@LoginAdmin");
 Route::get("/admin","AdminController\AdminController@Adminpage");
 Route::post('/admin.about/editabout', 'AdminController\AdminController@updateabout')->name('category.update');

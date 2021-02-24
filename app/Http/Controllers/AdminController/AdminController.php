@@ -5,16 +5,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
 class AdminController extends Controller
 {
-
-    public function Index(){
-        $AllData= Admin::select('contact_section','fontcolor','backgroundnav','namewebsite','description','background_color','contact_name','contact','created_at','updated_at','about','namebrand','video','icon1','icon2','icon3','icon4','icon5','icon6','caption1','caption2','caption3','caption4','caption5','caption6','sliderpic1','sliderpic2','sliderpic3','sliderpic4','emailcompany','tel','fax','logocont','background')->get();
-        return view('welcome',compact('AllData'));
-    }
-    public function LoginAdmin(){
-        return view('auth\login');
-    }
+//    public function __construct(){
+//        $this->middleware('auth');
+//    }
     public function Adminpage(){
         $AllData=Admin::select('namewebsite','description','background_color','contact_name','contact','created_at','updated_at','about','namebrand','video','icon1','icon2','icon3','icon4','icon5','icon6','caption1','caption2','caption3','caption4','caption5','caption6','sliderpic1','sliderpic2','sliderpic3','sliderpic4','emailcompany','tel','fax','logocont','background')->get();
         return view('AdminAbout',compact('AllData'));
@@ -25,6 +21,7 @@ class AdminController extends Controller
         $editabout =  Admin::find(1);
         $editabout->about = $request->about;
         $editabout->namebrand = $request->namebrand;
+
         $video = $request->file('video');
         if($request->hasFile('video')) {
             $validator = Validator::make($request->all(), [
@@ -38,8 +35,10 @@ class AdminController extends Controller
             $path = 'imagesAndVideos/Video';
             $request->video->move($path, $video_name);
             $video = $path . '/' . $video_name;
+
             $editabout->video = $video_name;
         }
+
         $editabout->save();
 
         return redirect()->back()->with(['message'=>'Changes Saved']);
@@ -53,13 +52,12 @@ class AdminController extends Controller
         return redirect()->back()->with(['message'=>'Changes Saved']);
     }
     public function deletevideo()
-{
-    $deletevideo =  Admin::find(1);
-    $deletevideo->video=null;
-    $deletevideo->save();
-    return redirect()->back()->with(['message'=>'Changes Saved']);
-}
-
+    {
+        $deletevideo =  Admin::find(1);
+        $deletevideo->video=null;
+        $deletevideo->save();
+        return redirect()->back()->with(['message'=>'Changes Saved']);
+    }
     //////////////////////////////////////////// about section //////////////////////////////
 
     //////////////////////////////////////////// why us section //////////////////////////////
@@ -104,7 +102,7 @@ class AdminController extends Controller
     //////////////////////////////////////////// Slider //////////////////////////////
     public function updatepic1(Request $request){
         $editpic1 =  Admin::find(1);
-        $editpic1->sliderpic4 = $request->sliderpic1;
+        $editpic1->sliderpic1 = $request->sliderpic1;
         $sliderpic1 = $request->file('sliderpic1');
         if($request->hasFile('sliderpic1')) {
             $sliderpic1_extension = $request->sliderpic1->getClientOriginalExtension();
@@ -114,10 +112,10 @@ class AdminController extends Controller
             $editpic1->sliderpic1 = $sliderpic1_name;
             $editpic1->save();
             return redirect()->back()->with(['message'=>'Changes Saved']);
-            }else{
-                return redirect()->back()->with(['messageerror'=>'Please upload the file']);
-             }
+        }else{
+            return redirect()->back()->with(['messageerror'=>'Please upload the file']);
         }
+    }
     public function updatepic2(Request $request){
         $editpic2 =  Admin::find(1);
         $editpic2->sliderpic2 = $request->sliderpic2;
@@ -151,21 +149,21 @@ class AdminController extends Controller
         }
     }
     public function updatepic4(Request $request){
-    $editpic4 =  Admin::find(1);
-    $editpic4->sliderpic4 = $request->sliderpic4;
-    $sliderpic4 = $request->file('sliderpic4');
-    if($request->hasFile('sliderpic4')) {
-        $sliderpic4_extension = $request->sliderpic4->getClientOriginalExtension();
-        $sliderpic4_name = time(). '.' . $sliderpic4_extension;
-        $path = 'imagesAndVideos/Picture';
-        $request->sliderpic4->move($path, $sliderpic4_name);
-        $editpic4->sliderpic4 = $sliderpic4_name;
-        $editpic4->save();
-        return redirect()->back()->with(['message'=>'Changes Saved']);
-    }else{
-        return redirect()->back()->with(['messageerror'=>'Please upload the file']);
+        $editpic4 =  Admin::find(1);
+        $editpic4->sliderpic4 = $request->sliderpic4;
+        $sliderpic4 = $request->file('sliderpic4');
+        if($request->hasFile('sliderpic4')) {
+            $sliderpic4_extension = $request->sliderpic4->getClientOriginalExtension();
+            $sliderpic4_name = time(). '.' . $sliderpic4_extension;
+            $path = 'imagesAndVideos/Picture';
+            $request->sliderpic4->move($path, $sliderpic4_name);
+            $editpic4->sliderpic4 = $sliderpic4_name;
+            $editpic4->save();
+            return redirect()->back()->with(['message'=>'Changes Saved']);
+        }else{
+            return redirect()->back()->with(['messageerror'=>'Please upload the file']);
+        }
     }
-}
 
     public function deletepic1(){
         $deletepic1 =  Admin::find(1);
@@ -180,10 +178,10 @@ class AdminController extends Controller
         return redirect()->back()->with(['message'=>'Changes Saved']);
     }
     public function deletepic3(){
-    $deletepic3 =  Admin::find(1);
-    $deletepic3->sliderpic3 = null;
-    $deletepic3->save();
-    return redirect()->back()->with(['message'=>'Changes Saved']);
+        $deletepic3 =  Admin::find(1);
+        $deletepic3->sliderpic3 = null;
+        $deletepic3->save();
+        return redirect()->back()->with(['message'=>'Changes Saved']);
     }
     public function deletepic4(){
         $deletepic4 =  Admin::find(1);
@@ -212,25 +210,6 @@ class AdminController extends Controller
         $editcontact->background_color = $request->background_color;
         $editcontact->save();
         return redirect()->back()->with(['message'=>'Changes Saved']);
-    }
-    public function updatelogo(Request $request){
-        $logocont =  Admin::find(1);
-        $logocont->logocont = $request->logocont;
-        $logocont->backgroundnav=$request->backgroundnav;
-        $sliderpic1 = $request->file('logocont');
-        if($request->hasFile('logocont')) {
-            $logocont_extension = $request->logocont->getClientOriginalExtension();
-            $logocont_name = time(). '.' . $logocont_extension;
-            $path = 'imagesAndVideos/Picture';
-            $request->logocont->move($path, $logocont_name);
-            $logocont->logocont = $logocont_name;
-            $logocont->save();
-            return redirect()->back()->with(['message'=>'Changes Saved']);
-        }else{
-            $logocont->save();
-            return redirect()->back()->with(['messageerror'=>'Please upload the file']);
-        }
-
     }
     public function deletecontactform(){
         $delcontform =  Admin::find(1);
@@ -267,18 +246,17 @@ class AdminController extends Controller
 
     public function updatepage(Request $request)
     {
-            $updatepage =  Admin::find(1);
-            $updatepage->namewebsite = $request->namewebsite;
-            $updatepage->fontcolor=$request->fontcolor;
-            $updatepage->description = $request->description;
-            $video = $request->file('background');
-            $background_extension = $request->background->getClientOriginalExtension();
-            $background_name = time(). '.' . $background_extension;
-            $path = 'public/';
-            $request->background->move($path, $background_name);
-            $background = $path . '/' . $background_name;
-            $updatepage->background = $background_name;
-            $updatepage->save();
+        $updatepage =  Admin::find(1);
+        $updatepage->namewebsite = $request->namewebsite;
+        $updatepage->description = $request->description;
+        $video = $request->file('background');
+        $background_extension = $request->background->getClientOriginalExtension();
+        $background_name = time(). '.' . $background_extension;
+        $path = 'public/';
+        $request->background->move($path, $background_name);
+        $background = $path . '/' . $background_name;
+        $updatepage->background = $background_name;
+        $updatepage->save();
         return redirect()->back()->with(['message'=>'Changes Saved']);
     }
     public function deletenav(){
